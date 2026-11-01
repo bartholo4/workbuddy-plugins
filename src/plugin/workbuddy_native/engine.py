@@ -67,6 +67,10 @@ class Engine:
             save(journal,receipt)
             try:
                 env=dict(os.environ); env.update(CODEBUDDY_CONFIG_DIR=str(self.profile),WORKBUDDY_CONFIG_DIR=str(self.profile),DISABLE_TELEMETRY='1')
+                # The verified Windows distribution ships only the lite-WB bundle.
+                selected='CODEBUDDY_FORCE_LITE_WB_BUNDLE' if os.name=='nt' else 'CODEBUDDY_FORCE_HEADLESS_BUNDLE'
+                other='CODEBUDDY_FORCE_HEADLESS_BUNDLE' if os.name=='nt' else 'CODEBUDDY_FORCE_LITE_WB_BUNDLE'
+                env[selected]='1'; env.pop(other,None)
                 for k in ('CODEBUDDY_PROJECT_CONFIG_DIR','OTEL_LOG_RAW_API_BODIES'): env.pop(k,None)
                 run=subprocess.run(self.cli+['--print','--input-format','stream-json','--output-format','stream-json','--resume',session,'--fork-session','--session-id',target_id,'--resume-session-at',boundary],cwd=cwd,env=env,stdin=subprocess.DEVNULL,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=75,check=False,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0) if os.name=='nt' else 0)
                 receipt['cli_exit_code']=run.returncode

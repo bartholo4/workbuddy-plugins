@@ -16,6 +16,9 @@ class TestEngine(unittest.TestCase):
  def tearDown(self):self.tmp.cleanup()
  def fake(self,args,**kw):
   self.assertIs(kw['stdin'],__import__('subprocess').DEVNULL);self.assertNotIn('shell',kw)
+  selected='CODEBUDDY_FORCE_LITE_WB_BUNDLE' if os.name=='nt' else 'CODEBUDDY_FORCE_HEADLESS_BUNDLE'
+  other='CODEBUDDY_FORCE_HEADLESS_BUNDLE' if os.name=='nt' else 'CODEBUDDY_FORCE_LITE_WB_BUNDLE'
+  self.assertEqual(kw['env'][selected],'1');self.assertNotIn(other,kw['env'])
   target=args[args.index('--session-id')+1];(self.folder/(target+'.jsonl')).write_bytes(self.source.read_bytes());return type('Run',(),{'returncode':0})()
  def test_branch_idempotent_and_immutable(self):
   before=self.source.read_bytes()

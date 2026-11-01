@@ -33,6 +33,7 @@ $Cli = 'C:\Path\To\WorkBuddy\resources\app.asar.unpacked\cli\bin\codebuddy'
 $Project = 'C:\Projects\My Project'
 $env:CODEBUDDY_CONFIG_DIR = Join-Path $HOME '.workbuddy'
 $env:WORKBUDDY_CONFIG_DIR = $env:CODEBUDDY_CONFIG_DIR
+$env:CODEBUDDY_FORCE_LITE_WB_BUNDLE = '1' # Windows pinned distribution ships lite-WB only
 & $Node $Cli plugin validate $Repo
 & $Node $Cli plugin marketplace add $Repo
 & $Node $Cli plugin install 'workbuddy-tools@workbuddy-plugins'
@@ -40,7 +41,7 @@ $env:WORKBUDDY_CONFIG_DIR = $env:CODEBUDDY_CONFIG_DIR
 & $Python -X utf8 "$Repo\plugins\workbuddy-tools\scripts\manage.py" install --project $Project --cli $Cli --node $Node --hook-shell powershell
 ```
 
-只需安装这一个插件。原生插件默认 hook 故意为空：宿主首次 prompt 存在异步加载竞态，因此确定性命令使用上述安装器注册的**项目级原生 UserPromptSubmit hook**。Windows 明确指定 `shell: powershell`，固定 argv 单引号转义；用户命令参数只从 stdin JSON 读取，从不拼进 shell。Linux 使用 `--hook-shell posix`。
+只需安装这一个插件。原生插件默认 hook 故意为空：宿主首次 prompt 存在异步加载竞态，因此确定性命令使用上述安装器注册的**项目级原生 UserPromptSubmit hook**。Windows 明确指定 `shell: powershell`，固定 argv 单引号转义；用户命令参数只从 stdin JSON 读取，从不拼进 shell。Linux 使用 `--hook-shell posix`，并设置 `CODEBUDDY_FORCE_HEADLESS_BUNDLE=1`（不要沿用 Windows lite-WB 变量）。
 
 安装器保留其它 hooks/权限，首次备份 settings；插件使用唯一项目 router hook 按命名空间分发，避免宿主多 hook 结果聚合与快速退出丢 stdout 的问题。已处理命令无论成功或失败都使用原生退出码 2 阻断；shell 包装将解释器/脚本异常同样映射为 2，不依赖延时。普通 prompt 则无输出退出 0。共享 `.conversation-tools.json` 仅保存官方 CLI argv；不信任新工作区、不修改权限、账号、密钥或默认模型。
 

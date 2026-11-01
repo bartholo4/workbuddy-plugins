@@ -13,8 +13,15 @@ def main():
  for d in (cwd,profile,logs,out/'tmp'):d.mkdir(parents=True,exist_ok=True)
  env={k:os.environ[k] for k in ('PATH','SystemRoot','SYSTEMROOT','WINDIR','COMSPEC','PATHEXT') if k in os.environ}
  env.update(HOME=str(home),USERPROFILE=str(home),APPDATA=str(home/'AppData/Roaming'),LOCALAPPDATA=str(home/'AppData/Local'),TEMP=str(out/'tmp'),TMP=str(out/'tmp'),CODEBUDDY_CONFIG_DIR=str(profile),WORKBUDDY_CONFIG_DIR=str(profile),CODEBUDDY_FORCE_HEADLESS_BUNDLE='1',DISABLE_TELEMETRY='1',DISABLE_GALILEO='1',PYTHONUTF8='1')
+ if os.name=='nt':
+  env.pop('CODEBUDDY_FORCE_HEADLESS_BUNDLE',None);env['CODEBUDDY_FORCE_LITE_WB_BUNDLE']='1'
  def run(label,args,stdin=None):
-  r=subprocess.run([str(node),str(cli),*args],cwd=cwd,env=env,input=stdin,capture_output=True,text=True,encoding='utf-8',timeout=120)
+  try:
+   r=subprocess.run([str(node),str(cli),*args],cwd=cwd,env=env,input=stdin,capture_output=True,text=True,encoding='utf-8',timeout=120)
+  except subprocess.TimeoutExpired as exc:
+   as_text=lambda value:value.decode('utf-8','replace') if isinstance(value,bytes) else (value or '')
+   (logs/(label+'.txt')).write_text(as_text(exc.stdout)+'\nSTDERR\n'+as_text(exc.stderr)+'\nTIMEOUT: 120 seconds',encoding='utf-8')
+   raise RuntimeError(label+' timed out; partial synthetic diagnostics retained') from exc
   (logs/(label+'.txt')).write_text(r.stdout+'\nSTDERR\n'+r.stderr,encoding='utf-8')
   if r.returncode:raise RuntimeError(label+' failed; inspect synthetic logs')
   return r.stdout
