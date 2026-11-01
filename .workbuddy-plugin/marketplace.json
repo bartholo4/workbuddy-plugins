@@ -7,7 +7,7 @@
     {
       "name": "workbuddy-tools",
       "source": "./plugins/workbuddy-tools",
-      "version": "0.2.0-rc.3"
+      "version": "0.2.0"
     }
   ]
 }

@@ -57,7 +57,7 @@ def dispatch(event: dict) -> dict | None:
             if (profile/'workbuddy.db').exists():
                 from workbuddy_native.registry import register
                 result=dict(result,desktop_registration=register(engine,result))
-        else: result={'profile':str(profile),'adapter':('Windows WorkBuddy 5.9.3 / CLI 2.165.0 candidate' if sys.platform=='win32' else 'Linux WorkBuddy 5.6.2 / CLI 2.147.0'),'style_default':'off','database_present':(profile/'workbuddy.db').exists()}
+        else: result={'profile':str(profile),'adapter':('Windows WorkBuddy 5.9.3 / CLI 2.165.0' if sys.platform=='win32' else 'Linux WorkBuddy 5.6.2 / CLI 2.147.0'),'style_default':'off','database_present':(profile/'workbuddy.db').exists()}
         if isinstance(result,dict) and result.get('target'):
             result=dict(result,open_uri='workbuddy://chat/'+uid(result['target']),gui_open_verified=False)
         return {'decision':'block','reason':json.dumps({'conversation_tools':result},ensure_ascii=False)}

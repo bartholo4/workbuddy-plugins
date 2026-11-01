@@ -25,7 +25,7 @@ def build():
             shutil.rmtree(target)
         target.mkdir(parents=True,exist_ok=True)
         shutil.copytree(SOURCE,target,dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc','tests','README.zh-CN.md'))
-        manifest=json.loads((target/'.workbuddy-plugin/plugin.json').read_text(encoding='utf-8'));manifest.update(name=name,version='0.2.0-rc.3',description='Windows-first native conversation branching and opt-in reasoning seed tools')
+        manifest=json.loads((target/'.workbuddy-plugin/plugin.json').read_text(encoding='utf-8'));manifest.update(name=name,version='0.2.0',description='Windows-first native conversation branching and opt-in reasoning seed tools')
         (target/'.workbuddy-plugin/plugin.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
         for command in (target/'commands').glob('*.md'):
             if command.stem not in commands:command.unlink()
@@ -33,6 +33,6 @@ def build():
         text=skill.read_text(encoding='utf-8').replace('/conversation-tools:',f'/{name}:')
         lines=[line for line in text.splitlines() if not any(f'/{name}:{command}' in line for command in {'branch','points','style-new','recover','status'}-commands)]
         skill.write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    marketplace={'name':'workbuddy-plugins','owner':{'name':'WorkBuddy Conversation Tools'},'plugins':[{'name':name,'source':'./plugins/'+name,'version':'0.2.0-rc.3'} for name in PLUGINS]}
+    marketplace={'name':'workbuddy-plugins','owner':{'name':'WorkBuddy Conversation Tools'},'plugins':[{'name':name,'source':'./plugins/'+name,'version':'0.2.0'} for name in PLUGINS]}
     (ROOT/'.workbuddy-plugin/marketplace.json').write_text(json.dumps(marketplace,ensure_ascii=False,indent=2),encoding='utf-8')
 if __name__=='__main__':build()

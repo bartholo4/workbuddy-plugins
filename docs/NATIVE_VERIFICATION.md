@@ -4,7 +4,7 @@
 
 ## 前置证据
 
-记录 WorkBuddy EXE 文件版本、bundled CLI package 版本和实际 hook event.version。当前候选适配 Windows WorkBuddy 5.9.3 / CLI 2.165.0；仅 package 静态版本不足以证明 hook 动态契约。
+记录 WorkBuddy EXE 文件版本、bundled CLI package 版本和实际 hook event.version。当前固定适配 Windows WorkBuddy 5.9.3 / CLI 2.165.0；仅 package 静态版本不足以证明 hook 动态契约。
 
 确认 `python.exe` 3.10+、`pwsh` 7 与可信 `node.exe` 路径。若厂商只提供 `resources/vendor/node.zip`，允许将已核实的该归档解压到新建临时测试目录，**不写回厂商安装目录、不安装软件、不改执行策略/沙箱设置**。应使用官方配套 Node；替代 Node 必须记录版本及兼容性限制。
 

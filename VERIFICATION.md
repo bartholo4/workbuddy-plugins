@@ -1,18 +1,36 @@
-# Verification status — 2026-11-01
+# Verification — 2026-11-01
 
-## Passed locally in the cloud
+## Real Windows cloud result: PASS
 
-- 57 shared-core tests on Linux: 54 pass, 3 platform-specific skips (two Windows filesystem/lock checks and actual PowerShell parser). Windows CI requires PowerShell; missing `pwsh` fails its parser gate rather than skipping it.
-- 2 packaging tests: one combined native plugin, idempotent installation, uninstall preserves unrelated hooks.
-- Compileall and privacy/layout scan: no private history, original private source files, credentials, vendor executables or cloud-absolute paths shipped.
-- Real Linux WorkBuddy 5.6.2.40046327 / CLI 2.147.0: native validate, marketplace install/list, all five namespaced commands, selected-boundary branch, insert-only exact-schema synthetic database, source row unchanged, reasoning EOF roundtrip with API duration 0.
-- Final combined-plugin native stress gate: five independent style creates, entire hook stdout/stderr discarded and missing interpreter still block in the host via final exit code 2. Ordinary and unrelated prompts remain silent exit 0 with dependencies available.
-- Official Windows 5.9.3.42398134 installer SHA256 and static extraction verified; bundled CLI 2.165.0 and Node 22.22.2 identified. Installer was not executed.
+Verified implementation commit: [`63c1b4e31f0818d59d5b411da0f750c912e5990b`](https://github.com/bartholo4/workbuddy-plugins/commit/63c1b4e31f0818d59d5b411da0f750c912e5990b).
 
-## Still required
+- [Native Windows run 41301284752](https://github.com/bartholo4/workbuddy-plugins/actions/runs/41301284752): **success**, GitHub-hosted Windows Server 2025.
+- [Windows/Linux × Python 3.10/3.12 matrix 41301284940](https://github.com/bartholo4/workbuddy-plugins/actions/runs/41301284940): **all four jobs successful**.
+- Native diagnostic artifact `13081881016`, SHA256 `497d18185319d6d80ed451e47d64282299fdce25a3ac19e93410236c82332484` (retention limited by GitHub).
 
-- Actual Windows unit/native GitHub Actions results, including final PowerShell shell exit-code propagation and native stress gates. A YAML file or Linux pass is not Windows proof.
-- Desktop GUI interaction, list refresh and `workbuddy://chat` navigation are not claimed.
-- Live model effects are not tested or promised. No paid model call is part of these tests.
+The Windows job downloaded official WorkBuddy **5.9.3.42398134**, verified pinned SHA256, statically extracted NSIS/app-64.7z/Node ZIP without executing the installer, and ran its real **CLI 2.165.0** with bundled **Node 22.22.2**. It selected the shipped **lite-WB** bundle; the separate Linux adapter selects its headless bundle.
 
-The repository is a candidate until the actual Windows gate succeeds. Tests use only synthetic isolated profiles and do not modify an existing user profile, accounts, permissions, credentials or security settings.
+Passed in the real Windows host:
+
+- Native plugin validate, marketplace add/install/list, unified five-command namespace.
+- Selected-boundary conversation branching; same workspace; source database row unchanged.
+- Insert-only registration against the exact synthetic 40-column schema.
+- Reasoning seed creation and native EOF resume/fork roundtrip; **API duration 0**.
+- Five additional independent style creations.
+- Entire hook stdout/stderr discarded: final shell exit **2** still blocks.
+- Missing interpreter: shell guard still blocks rather than forwarding to a model.
+- Owned uninstall and installation idempotence.
+
+Unit gates cover 57 core cases plus 2 packaging cases. Windows actually executes cross-process file-lock and PowerShell parser tests, including spaces, quotes, metacharacters and non-ASCII arguments; external Python exits 1 and 2 both produce final PowerShell exit 2. Platform-inapplicable POSIX/symlink-privilege cases are explicitly skipped; a missing Windows `pwsh` fails, never silently skips.
+
+## Linux regression: PASS
+
+Real official Linux WorkBuddy **5.6.2.40046327 / CLI 2.147.0** completed the same combined-plugin native flow, five-repeat style stress, discarded-output guard, missing-interpreter guard and synthetic database checks. The shared-core Linux run passed 54 cases with 3 genuine Windows/PowerShell-specific skips; both packaging cases passed.
+
+## Scope and remaining limitations
+
+- Desktop GUI buttons, list refresh and `workbuddy://chat` navigation are **not tested or claimed**. Windows proof is the real native CLI/hook/storage path, not a visual GUI simulation.
+- Live model effects are **not tested or promised**. No paid model call is part of these tests. Reasoning persistence is not a guarantee of intelligence, wording or provider behavior.
+- All native tests use newly created synthetic HOME/profile/workspace and a credential-free environment. No existing user profile, account, source history, security setting or vendor installation was modified.
+- The public repository does not bundle vendor executables, private history, original private source files or credentials.
+- Source code changes after the linked commit must be revalidated. Version/verification-document promotion does not replace CI for its resulting commit.

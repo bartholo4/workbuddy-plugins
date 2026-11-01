@@ -4,12 +4,12 @@
 
 安装名 `workbuddy-tools`，统一命名空间 `/workbuddy-tools:`。代码位于一个仓库，可公开发布；不包含私人 seed 或账号历史。
 
-当前 `0.2.0-rc.3` 是 Windows 验证候选，尚未完成真实 Windows 原生运行证明。不要把 Linux 通过视为 Windows 已通过。仓库已具备构建、双平台 CI 与隐私排除配置；是否通过以对应提交的 CI 结果为准。
+当前版本 `0.2.0`。已在 GitHub 云端 Windows Server 2025 上使用官方 WorkBuddy 5.9.3.42398134 / CLI 2.165.0 完成真实原生回归；Windows/Linux × Python 3.10/3.12 合成测试也全部通过。覆盖原生 CLI、hook、会话持久化和本地登记，不冒充桌面 GUI 或真实模型效果验证。详细证据见 [VERIFICATION.md](VERIFICATION.md)。
 
 ## 安装前检查
 
-- Windows：WorkBuddy 5.9.3，bundled CLI package 2.165.0；该版静态 schema 与适配器一致。必须完成候选运行验证后才能宣称支持。
-- Linux：WorkBuddy 5.6.2.40046327 / CLI 2.147.0，原生分支、hook、seed 与 DB 测试已通过；最终合并版本回归结果另行记录。
+- Windows：WorkBuddy 5.9.3，bundled CLI package 2.165.0；已完成固定版本真实原生云端回归；未知 CLI 版本或数据库结构会拒绝写入。
+- Linux：WorkBuddy 5.6.2.40046327 / CLI 2.147.0，最终合并版本的原生分支、hook、seed、DB 及丢输出 fail-closed 压力回归均已通过。
 - Python **3.10+**，Windows 还必须有 **PowerShell 7 `pwsh`**，并可被 WorkBuddy 子进程 PATH 找到。不会安装软件或更改执行策略。
 - 仅支持本地磁盘；拒绝 UNC、junction/reparse point、符号链接。Windows 新会话原子发布需要支持硬链接的文件系统（通常 NTFS）；不宣称网络盘/FAT 支持。
 - Node/CLI 使用你确认的官方安装文件或受信任的现有 Node；不从网络下载运行时。部分 Windows 安装把 bundled Node 留在 `resources/vendor/node.zip`，本工具不擅自解压或修改厂商安装。
@@ -106,6 +106,6 @@ python -m unittest discover -s tests -v
 python scripts/native_smoke.py --node /absolute/node --cli /absolute/codebuddy --output /new/isolated/output
 ```
 
-输出目录必须不存在。脚本仅新建合成 HOME/profile/workspace 和数据库，白名单环境不继承凭证；验证安装幂等、会话分支、reasoning EOF、归属卸载。普通 CI 不执行它；另外提供代码路径 push/PR 自动触发、也可手动执行的 `Native Windows WorkBuddy (pinned, synthetic)` workflow，固定官方安装包 SHA256，使用预装 7-Zip 静态提取而不运行安装器。原生 Windows 支持仍需该实际宿主任务通过。
+输出目录必须不存在。脚本仅新建合成 HOME/profile/workspace 和数据库，白名单环境不继承凭证；验证安装幂等、会话分支、reasoning EOF、归属卸载。普通 CI 不执行它；另外提供代码路径 push/PR 自动触发、也可手动执行的 `Native Windows WorkBuddy (pinned, synthetic)` workflow，固定官方安装包 SHA256，使用预装 7-Zip 静态提取而不运行安装器。实际宿主任务已通过；更新后仍应检查对应提交的 CI 结果。
 
 官方 Windows 固定包证据见 `ci/workbuddy-windows-pin.json`；[官方更新元数据](https://www.workbuddy.cn/v2/update?platform=workbuddy-win32-x64-user) 与实际下载 SHA256 已核对。下载脚本不使用浮动 latest、不接受外部传入 URL、不携带账号密钥；完整验证范围见 [原生验证协议](docs/NATIVE_VERIFICATION.md)。

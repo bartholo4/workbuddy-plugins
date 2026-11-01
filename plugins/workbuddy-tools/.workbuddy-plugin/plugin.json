@@ -1,6 +1,6 @@
 {
   "name": "workbuddy-tools",
-  "version": "0.2.0-rc.3",
+  "version": "0.2.0",
   "description": "Windows-first native conversation branching and opt-in reasoning seed tools",
   "author": {
     "name": "Local Conversation Tools"
