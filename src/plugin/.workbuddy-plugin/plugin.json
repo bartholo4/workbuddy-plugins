@@ -1,0 +1,8 @@
+{
+  "name": "conversation-tools",
+  "version": "0.1.0",
+  "description": "本地会话分支与显式最小风格 seed；不发送模型请求、不修改源历史",
+  "author": {
+    "name": "Local Conversation Tools"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "product": "WorkBuddy",
+  "platform": "workbuddy-win32-x64-user",
+  "version": "5.9.3.42398134",
+  "cli_version": "2.165.0",
+  "node_version": "22.22.2",
+  "metadata_url": "https://www.workbuddy.cn/v2/update?platform=workbuddy-win32-x64-user",
+  "url": "https://download.codebuddy.cn/workbuddy/saas/win32-x64-user/WorkBuddy-win32-x64-user-5.9.3.42398134-d4692421.exe",
+  "sha256": "b5edb52bd6c5b6c7296cf2fff697b019c86d11992a8a814c3010d611896852f9",
+  "format": "NSIS-3 Unicode; embedded $PLUGINSDIR/app-64.7z",
+  "verification": "Official update metadata and independent full artifact SHA256 matched; installer not executed."
+}

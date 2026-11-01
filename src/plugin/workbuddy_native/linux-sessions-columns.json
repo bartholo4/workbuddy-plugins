@@ -1,0 +1,322 @@
+[
+  {
+    "cid": 0,
+    "name": "id",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 1
+  },
+  {
+    "cid": 1,
+    "name": "cwd",
+    "type": "TEXT",
+    "notnull": 1,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 2,
+    "name": "user_id",
+    "type": "TEXT",
+    "notnull": 1,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 3,
+    "name": "title",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 4,
+    "name": "custom_title",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 5,
+    "name": "status",
+    "type": "TEXT",
+    "notnull": 1,
+    "dflt_value": "'Pending'",
+    "pk": 0
+  },
+  {
+    "cid": 6,
+    "name": "created_at",
+    "type": "INTEGER",
+    "notnull": 1,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 7,
+    "name": "updated_at",
+    "type": "INTEGER",
+    "notnull": 1,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 8,
+    "name": "last_activity_at",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 9,
+    "name": "deleted_at",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 10,
+    "name": "is_playground",
+    "type": "INTEGER",
+    "notnull": 1,
+    "dflt_value": "0",
+    "pk": 0
+  },
+  {
+    "cid": 11,
+    "name": "source_mode",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 12,
+    "name": "is_background_automation",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 13,
+    "name": "mode",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 14,
+    "name": "model",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 15,
+    "name": "expert_id",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 16,
+    "name": "expert_locale",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 17,
+    "name": "expert_runtime_identity",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 18,
+    "name": "expert_marketplace",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 19,
+    "name": "permission_mode",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 20,
+    "name": "use_sandbox_cli",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 21,
+    "name": "project_id",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 22,
+    "name": "plugin_context_json",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 23,
+    "name": "addon_selection",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 24,
+    "name": "session_settings",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 25,
+    "name": "last_user_prompt_expert_selection",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 26,
+    "name": "context_window",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 27,
+    "name": "buddy_snapshot_id",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 28,
+    "name": "buddy_binding_json",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 29,
+    "name": "thought_level",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 30,
+    "name": "transport",
+    "type": "TEXT",
+    "notnull": 1,
+    "dflt_value": "'local'",
+    "pk": 0
+  },
+  {
+    "cid": 31,
+    "name": "conversation_origin",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 32,
+    "name": "visibility",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 33,
+    "name": "group_id",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 34,
+    "name": "group_title",
+    "type": "TEXT",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 35,
+    "name": "agent_dirty",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 36,
+    "name": "agent_dirty_at",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 37,
+    "name": "agent_last_synced",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 38,
+    "name": "verified_at",
+    "type": "INTEGER",
+    "notnull": 0,
+    "dflt_value": null,
+    "pk": 0
+  },
+  {
+    "cid": 39,
+    "name": "unread",
+    "type": "INTEGER",
+    "notnull": 1,
+    "dflt_value": "0",
+    "pk": 0
+  }
+]

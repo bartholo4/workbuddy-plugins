@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+*.db
+*.db-*
+*.jsonl
+.conversation-tools.json
+.codebuddy/
+.workbuddy/
+*operations/
+runtime/
+source_reference/
+*.zip
+.DS_Store
+Thumbs.db

@@ -1,0 +1,33 @@
+name: Synthetic tests
+on: [push, pull_request, workflow_dispatch]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        python: ['3.10', '3.12']
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Build native plugin
+        run: python scripts/build_plugins.py
+      - name: Compile
+        run: python -m compileall -q src plugins
+      - name: Synthetic regression tests (no WorkBuddy binary or API calls)
+        working-directory: src/plugin
+        run: python -m unittest discover -s tests -v
+      - name: Check plugin packaging
+        run: python -m unittest discover -s tests -v

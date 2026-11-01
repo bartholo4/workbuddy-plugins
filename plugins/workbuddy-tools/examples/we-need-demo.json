@@ -1,0 +1,1 @@
+{"schema":1,"messages":[{"role":"user","text":"请直接回答问题，并区分已核实的事实和不确定项。"},{"role":"assistant","text":"我会先给出结论，再说明核验依据和仍不确定的部分。","reasoning":"We need to answer the question directly and verify the facts before making claims."}]}

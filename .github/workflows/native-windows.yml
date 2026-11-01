@@ -1,0 +1,56 @@
+name: Native Windows WorkBuddy (pinned, synthetic)
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'plugins/**'
+      - 'scripts/**'
+      - 'ci/**'
+      - '.github/workflows/native-windows.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'plugins/**'
+      - 'scripts/**'
+      - 'ci/**'
+      - '.github/workflows/native-windows.yml'
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: windows-2025
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build the native plugin
+        run: python scripts/build_plugins.py
+      - name: Windows unit and actual PowerShell parser gates
+        working-directory: src/plugin
+        run: python -m unittest discover -s tests -v
+      - name: Download verified official artifact and statically extract (never run installer)
+        shell: pwsh
+        run: ./scripts/prepare_windows_runtime.ps1 -Output (Join-Path $env:RUNNER_TEMP 'wb-pinned-runtime')
+      - name: Actual native CLI using only a synthetic isolated profile
+        shell: pwsh
+        run: python scripts/native_smoke.py --node $env:WORKBUDDY_TEST_NODE --cli $env:WORKBUDDY_TEST_CLI --output (Join-Path $env:RUNNER_TEMP 'wb-native-smoke')
+      - name: Preserve synthetic diagnostics, never vendor binaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-windows-synthetic-diagnostics
+          path: |
+            ${{ runner.temp }}/wb-native-smoke/result.json
+            ${{ runner.temp }}/wb-native-smoke/logs/*.txt
+            ${{ runner.temp }}/wb-pinned-runtime/runtime.json
+          if-no-files-found: ignore
